@@ -60,10 +60,12 @@ img{max-width:100%;display:block}
 }
 .nav button:hover,.nav button.active{color:#fff}
 .search-action{
-  display:flex;align-items:center;gap:8px;border:1px solid #fff;background:#fff;color:#050505;
+  --search-expansion:1;
+  display:flex;align-items:center;flex-shrink:0;gap:calc(8px * var(--search-expansion));border:1px solid #fff;background:#fff;color:#050505;
   border-radius:12px;padding:5.95px 12px;font-family:var(--serif);font-size:1.02rem;font-weight:700;line-height:1;
 }
-.search-action svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.search-action span{display:block;white-space:nowrap;overflow:hidden;max-width:calc(var(--search-label-width,140px) * var(--search-expansion));opacity:var(--search-expansion)}
+.search-action svg{flex-shrink:0;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
 .search-panel{
   position:absolute;z-index:70;right:max(20px,calc((100% - var(--max))/2));top:100%;
   width:min(430px,calc(100% - 40px));padding:14px 16px 12px;

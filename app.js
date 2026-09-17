@@ -11,10 +11,28 @@ function wire(){
  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#modalBackdrop').hidden)closeAll();closeSearch()}});
  $('#search').addEventListener('input',e=>{state.query=e.target.value.toLowerCase().trim();renderMenu()});
  $('#openSearch').addEventListener('click',toggleSearch);
+ wireSearchScroll();
  $('#openCart').addEventListener('click',()=>openSheet('cart'));$('[data-action="cart"]')?.addEventListener('click',()=>openSheet('cart'));
  $('#modalBackdrop').addEventListener('click',closeAll);$$('[data-close]').forEach(b=>b.addEventListener('click',closeAll));
  $('#modalAdd').addEventListener('click',commitCurrent);$('#goCheckout').addEventListener('click',()=>{if(!state.cart.length)return toast('Sua sacola está vazia');openSheet('checkout');pushEvent('begin_checkout',{value:cartTotal()})});
  $('#modeDelivery').addEventListener('click',()=>setMode('delivery'));$('#modePickup').addEventListener('click',()=>setMode('pickup'));$('#checkoutForm').addEventListener('submit',finishOrder);
+}
+function wireSearchScroll(){
+ const button=$('#openSearch'),label=$('span',button);
+ button.setAttribute('aria-label',label.textContent);
+ let frame=0;
+ const update=()=>{
+  frame=0;
+  const progress=Math.min(1,Math.max(0,window.scrollY)/140);
+  button.style.setProperty('--search-expansion',String(1-progress));
+ };
+ const schedule=()=>{if(!frame)frame=requestAnimationFrame(update)};
+ const measure=()=>{button.style.setProperty('--search-label-width',label.scrollWidth+'px');schedule()};
+ window.addEventListener('scroll',schedule,{passive:true});
+ window.addEventListener('resize',measure,{passive:true});
+ window.addEventListener('pageshow',schedule);
+ measure();update();
+ document.fonts?.ready.then(measure);
 }
 function toggleSearch(){const panel=$('#searchPanel');if(panel.hidden){panel.hidden=false;$('#openSearch').setAttribute('aria-expanded','true');$('#search').focus()}else closeSearch()}
 function closeSearch(){const panel=$('#searchPanel');if(!panel.hidden){panel.hidden=true;$('#openSearch').setAttribute('aria-expanded','false');if(state.query){state.query='';$('#search').value='';renderMenu()}}}
