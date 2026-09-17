@@ -48,7 +48,7 @@ img{max-width:100%;display:block}
   display:flex;align-items:center;flex:0 0 auto;
 }
 .header-logo{
-  display:block;width:auto;height:clamp(52px,5vw,64px);max-width:100%;object-fit:contain;
+  display:block;width:auto;height:clamp(56px,5.5vw,70px);max-width:100%;object-fit:contain;
 }
 .nav{
   margin-left:auto;display:flex;align-items:center;gap:18px;overflow:auto;scrollbar-width:none;
@@ -474,7 +474,7 @@ img{max-width:100%;display:block}
 @media(max-width:680px){
   .shell{width:min(calc(100% - 22px),var(--max))}
   .topbar__inner{min-height:64px;gap:10px}
-  .header-logo{height:52px;width:auto}
+  .header-logo{height:54px;width:auto}
   .cart-action{margin-left:auto}
   .masthead{padding-top:18px}
   .masthead__grid{grid-template-columns:1fr}
