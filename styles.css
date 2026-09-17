@@ -156,7 +156,6 @@ img{max-width:100%;display:block}
 .menu-section + .menu-section{margin-top:4px}
 .section-head{
   text-align:center;
-  border-top:1px solid var(--line);
   border-bottom:1px solid var(--line-soft);
   padding:8px 0 7px;
   margin-bottom:0;
@@ -283,6 +282,7 @@ img{max-width:100%;display:block}
 .price-summary{
   margin-top:20px;
   border:1px solid var(--line);
+  border-top:0;
 }
 .price-summary__title{
   font-weight:700;
