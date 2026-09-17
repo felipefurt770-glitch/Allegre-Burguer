@@ -75,7 +75,7 @@ img{max-width:100%;display:block}
   position:absolute;z-index:2;inset:0;
 }
 .masthead__copy h1{
-  position:absolute;left:clamp(30px,3vw,48px);top:clamp(30px,5vw,70px);transform:none;
+  position:absolute;left:clamp(30px,3vw,48px);top:clamp(14px,1.6vw,20px);transform:none;
   width:min(760px,calc(100% - 44px));margin:0;text-align:left;
   font-family:var(--serif);
   font-weight:600;
@@ -448,7 +448,7 @@ img{max-width:100%;display:block}
   .masthead__grid,.masthead__burger{min-height:0}
   .masthead__burger img,.masthead__burger video{min-height:0;height:auto}
   .masthead__copy{inset:0;width:auto}
-  .masthead__copy h1{left:28px;top:30px;width:calc(100% - 46px);font-size:clamp(2.25rem,10vw,3.1rem)}
+  .masthead__copy h1{left:28px;top:14px;width:calc(100% - 46px);font-size:clamp(2.25rem,10vw,3.1rem)}
   .masthead__burger figcaption{top:84%;width:calc(100% - 36px)}
   .masthead__burger:before{
     background:radial-gradient(circle at center,rgba(0,0,0,.55),rgba(0,0,0,.1) 65%),
