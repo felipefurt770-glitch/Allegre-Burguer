@@ -85,29 +85,34 @@ async function main() {
     for (const width of [1440, 1024, 768, 430, 390]) {
       await send('Emulation.setDeviceMetricsOverride', {width, height:900, deviceScaleFactor:1, mobile:width < 680});
       await send('Emulation.setTouchEmulationEnabled',{enabled:width<680});
-      await evaluate('window.scrollTo({top:0,behavior:"instant"})'); await delay(180);
+      await evaluate('window.scrollTo({top:0,behavior:"instant"});document.querySelector(".spotlight").scrollTo({left:0,behavior:"instant"})'); await delay(180);
       const geometry = await evaluate(`(() => {
         const rect=el=>el.getBoundingClientRect();
         const image=rect(document.querySelector('.masthead__burger>img'));
         const title=rect(document.querySelector('.masthead h1')),faith=rect(document.querySelector('.masthead__copy p')),smile=rect(document.querySelector('.masthead__smile'));
+        const blessing=rect(document.querySelector('.masthead__blessing'));
+        const titleFont=parseFloat(getComputedStyle(document.querySelector('.masthead h1')).fontSize);
         const rows=[...document.querySelectorAll('.product-row')];
         const positions=[...document.querySelectorAll('.menu-section')].map(el=>rect(el).top);
         const carousel=document.querySelector('.spotlight'),cards=[...carousel.children],box=rect(carousel);
         return {
           overflow:document.documentElement.scrollWidth>innerWidth,
           heroClear:title.right<=image.left+image.width*.4+1&&faith.right<=image.left+image.width*.4+1&&smile.right<=image.left+image.width*.4+1&&title.bottom<=faith.top+1&&faith.bottom<=smile.top+1,
+          heroSizes:Math.abs(titleFont-Math.min(4.8*16,Math.max(2.15*16,innerWidth*.055))*1.2)<.1&&Math.abs(smile.width-Math.min(130,Math.max(64,innerWidth*.09))*1.1)<.1,
+          blessingCentered:Math.abs((blessing.left+blessing.right)/2-(image.left+image.right)/2)<1&&blessing.bottom<image.bottom&&image.bottom-blessing.bottom<=33&&blessing.top>smile.bottom,
+          heroText:document.querySelector('.masthead__copy p').textContent==='Onde a fome termina e o sorriso começa'&&document.querySelector('.masthead__blessing').textContent==='Deus seja louvado',
           noNumbers:!document.querySelector('.product-row__number'),
           ordered:positions.every((p,i)=>!i||p>positions[i-1]),
           mediaLeft:rows.every(row=>rect(row.querySelector('.product-row__visual')).right<=rect(row.querySelector('.product-row__main')).left),
           addInside:rows.every(row=>{const a=rect(row.querySelector('.product-row__action')),b=rect(row.querySelector('.product-row__visual'));return a.left>=b.left&&a.left<b.left+12&&a.bottom<=b.bottom&&a.bottom>b.bottom-12&&a.width>=40}),
           allTextFits:rows.every(row=>{const text=row.querySelector('.product-row__main');return text.scrollWidth<=text.clientWidth+1}),
           square:cards.every(c=>{const r=rect(c.querySelector('.spotlight__photo'));return Math.abs(r.width-r.height)<1}),
-          visible:cards.filter(c=>rect(c).right<=box.right+1).length,
+          visible:cards.filter(c=>rect(c).left>=box.left-1&&rect(c).right<=box.right+1).length,
           scrollable:carousel.scrollWidth>carousel.clientWidth,
           titleStyles:rows.map(row=>{const s=getComputedStyle(row.querySelector('h3'));return {drink:row.classList.contains('product-row--drink'),size:s.fontSize,weight:s.fontWeight,family:s.fontFamily}})
         };
       })()`);
-      for (const key of ['heroClear','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
+      for (const key of ['heroClear','heroSizes','blessingCentered','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
       assert(!geometry.overflow, width + ': overflow');
       assert.equal(geometry.visible, width < 680 ? 3 : 4);
       assert.equal(geometry.scrollable, width < 680);
