@@ -60,12 +60,12 @@ img{max-width:100%;display:block}
 }
 .nav button:hover,.nav button.active{color:#fff}
 .cart-action{
-  border:1px solid var(--line);background:transparent;color:#fff;
+  border:1px solid #fff;background:#fff;color:#050505;border-radius:6px;
   padding:8px 12px;font-size:.66rem;letter-spacing:.12em;font-weight:700;
 }
 .cart-action b{
   margin-left:8px;display:inline-grid;place-items:center;
-  min-width:20px;height:20px;border-radius:50%;background:#fff;color:#050505;
+  min-width:20px;height:20px;border-radius:50%;background:#050505;color:#fff;
 }
 
 .masthead{padding:36px 0 0}
