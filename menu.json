@@ -1,0 +1,512 @@
+{
+  "meta": {
+    "version": "2.0.0",
+    "updatedAt": "2026-09-16",
+    "currency": "BRL",
+    "locale": "pt-BR",
+    "source": "Cardápio oficial enviado pela proprietária em 15/09/2026",
+    "notes": "Estrutura preparada para checkout, analytics e CRM; taxas de entrega e adicionais ainda devem ser validados antes de cobrança real."
+  },
+  "brand": {
+    "name": "Allegre Burguer",
+    "tagline": "Onde a fome termina e o sorriso começa.",
+    "instagram": "@allegre_burguer",
+    "location": "Guarulhos - SP",
+    "whatsapp": "+5511921349066",
+    "logo": "assets/logo-allegre.jpeg",
+    "heroImage": "assets/brasa-oficial.jpg",
+    "palette": {
+      "background": "#0F0F0F",
+      "foreground": "#FFFFFF",
+      "muted": "#A6A6A6"
+    }
+  },
+  "settings": {
+    "deliveryEnabled": true,
+    "pickupEnabled": true,
+    "deliveryFeeMode": "manual_confirmation",
+    "deliveryFeeMessage": "A taxa de entrega será confirmada conforme o endereço.",
+    "minOrder": 0,
+    "tracking": {
+      "dataLayer": true,
+      "metaPixelId": "",
+      "ga4MeasurementId": "",
+      "googleAdsConversionId": "",
+      "googleAdsConversionLabel": ""
+    }
+  },
+  "navigation": [
+    {
+      "id": "destaques",
+      "label": "Destaques"
+    },
+    {
+      "id": "hamburgueres",
+      "label": "Hambúrgueres"
+    },
+    {
+      "id": "combos",
+      "label": "Combos"
+    },
+    {
+      "id": "batatas",
+      "label": "Batatas"
+    },
+    {
+      "id": "bebidas",
+      "label": "Bebidas"
+    }
+  ],
+  "categories": [
+    {
+      "id": "destaques",
+      "name": "Destaques",
+      "description": "Escolhas que representam bem a experiência Allegre.",
+      "productIds": [
+        "allegre-brasa",
+        "combo-sorriso",
+        "batata-suprema"
+      ]
+    },
+    {
+      "id": "hamburgueres",
+      "name": "Hambúrgueres Artesanais",
+      "description": "Dois hambúrgueres artesanais de 100 g, pão brioche e combinações autorais.",
+      "productIds": [
+        "allegre-brasa",
+        "allegre-verde",
+        "allegre-vinagrete",
+        "allegre-cheddar",
+        "allegre-bacon",
+        "allegre-classico"
+      ]
+    },
+    {
+      "id": "combos",
+      "name": "Combos",
+      "description": "Monte sua combinação de forma simples e escolha os itens dentro do combo.",
+      "productIds": [
+        "combo-sorriso",
+        "combo-compartilhar",
+        "combo-familia"
+      ]
+    },
+    {
+      "id": "batatas",
+      "name": "Batatas",
+      "description": "Acompanhamentos Allegre.",
+      "productIds": [
+        "batata-allegre",
+        "batata-suprema"
+      ]
+    },
+    {
+      "id": "bebidas",
+      "name": "Bebidas",
+      "description": "Refrigerantes lata 350 ml.",
+      "productIds": [
+        "coca-cola",
+        "coca-zero",
+        "pepsi",
+        "fanta-laranja",
+        "fanta-uva",
+        "guarana",
+        "soda"
+      ]
+    }
+  ],
+  "optionGroups": {
+    "burgerRemovals": {
+      "id": "burgerRemovals",
+      "name": "Quer retirar algum ingrediente?",
+      "type": "multi",
+      "required": false,
+      "min": 0,
+      "max": 8,
+      "pricing": "included",
+      "options": []
+    },
+    "burgerExtras": {
+      "id": "burgerExtras",
+      "name": "Adicionais",
+      "type": "multi",
+      "required": false,
+      "min": 0,
+      "max": 4,
+      "pricing": "pending_validation",
+      "help": "Os adicionais estão estruturados, mas preços devem ser cadastrados depois da validação de CMV.",
+      "options": []
+    },
+    "drinkChoice": {
+      "id": "drinkChoice",
+      "name": "Escolha o refrigerante",
+      "type": "single",
+      "required": true,
+      "min": 1,
+      "max": 1,
+      "pricing": "included",
+      "options": [
+        {
+          "id": "coca-cola",
+          "label": "Coca-Cola 350 ml"
+        },
+        {
+          "id": "coca-zero",
+          "label": "Coca-Cola Zero 350 ml"
+        },
+        {
+          "id": "pepsi",
+          "label": "Pepsi 350 ml"
+        },
+        {
+          "id": "fanta-laranja",
+          "label": "Fanta Laranja 350 ml"
+        },
+        {
+          "id": "fanta-uva",
+          "label": "Fanta Uva 350 ml"
+        },
+        {
+          "id": "guarana",
+          "label": "Guaraná 350 ml"
+        },
+        {
+          "id": "soda",
+          "label": "Soda 350 ml"
+        }
+      ]
+    },
+    "burgerChoice": {
+      "id": "burgerChoice",
+      "name": "Escolha o hambúrguer",
+      "type": "single",
+      "required": true,
+      "min": 1,
+      "max": 1,
+      "pricing": "included",
+      "options": [
+        {
+          "id": "allegre-brasa",
+          "label": "Allegre Brasa"
+        },
+        {
+          "id": "allegre-verde",
+          "label": "Allegre Verde"
+        },
+        {
+          "id": "allegre-vinagrete",
+          "label": "Allegre Vinagrete"
+        },
+        {
+          "id": "allegre-cheddar",
+          "label": "Allegre Cheddar"
+        },
+        {
+          "id": "allegre-bacon",
+          "label": "Allegre Bacon"
+        },
+        {
+          "id": "allegre-classico",
+          "label": "Allegre Clássico"
+        }
+      ]
+    }
+  },
+  "products": [
+    {
+      "id": "allegre-brasa",
+      "type": "burger",
+      "name": "Allegre Brasa",
+      "price": 35.0,
+      "description": "2 hambúrgueres artesanais de 100 g cada, duas fatias de queijo prato, cebola caramelizada, molho de churrasco e nossa exclusiva Farofa de Churrasco Allegre no pão brioche.",
+      "shortCopy": "O sabor do churrasco em cada mordida.",
+      "ingredients": [
+        "Pão brioche",
+        "2 hambúrgueres artesanais de 100 g",
+        "2 fatias de queijo prato",
+        "Cebola caramelizada",
+        "Molho de churrasco",
+        "Farofa de Churrasco Allegre"
+      ],
+      "image": "assets/brasa-oficial.jpg",
+      "featured": true,
+      "badge": "Especialidade Allegre",
+      "optionGroups": [
+        "burgerRemovals",
+        "burgerExtras"
+      ],
+      "crossSell": [
+        "batata-suprema",
+        "batata-allegre",
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "allegre-verde",
+      "type": "burger",
+      "name": "Allegre Verde",
+      "price": 35.0,
+      "description": "2 hambúrgueres artesanais de 100 g cada, duas fatias de queijo prato, alface, tomate e molho verde no pão brioche.",
+      "shortCopy": "Leve, fresco e surpreendentemente saboroso.",
+      "ingredients": [
+        "Pão brioche",
+        "2 hambúrgueres artesanais de 100 g",
+        "2 fatias de queijo prato",
+        "Alface",
+        "Tomate",
+        "Molho verde"
+      ],
+      "image": null,
+      "featured": false,
+      "badge": null,
+      "optionGroups": [
+        "burgerRemovals",
+        "burgerExtras"
+      ],
+      "crossSell": [
+        "batata-suprema",
+        "batata-allegre",
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "allegre-vinagrete",
+      "type": "burger",
+      "name": "Allegre Vinagrete",
+      "price": 35.0,
+      "description": "2 hambúrgueres artesanais de 100 g cada, duas fatias de queijo prato, cebola grelhada e molho vinagrete no pão brioche.",
+      "shortCopy": "O equilíbrio perfeito entre frescor e suculência.",
+      "ingredients": [
+        "Pão brioche",
+        "2 hambúrgueres artesanais de 100 g",
+        "2 fatias de queijo prato",
+        "Cebola grelhada",
+        "Molho vinagrete"
+      ],
+      "image": null,
+      "featured": false,
+      "badge": null,
+      "optionGroups": [
+        "burgerRemovals",
+        "burgerExtras"
+      ],
+      "crossSell": [
+        "batata-suprema",
+        "batata-allegre",
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "allegre-cheddar",
+      "type": "burger",
+      "name": "Allegre Cheddar",
+      "price": 35.0,
+      "description": "2 hambúrgueres artesanais de 100 g cada, duas fatias de queijo prato, cheddar cremoso e cebola caramelizada no pão brioche.",
+      "shortCopy": "Muito queijo. Muito sabor.",
+      "ingredients": [
+        "Pão brioche",
+        "2 hambúrgueres artesanais de 100 g",
+        "2 fatias de queijo prato",
+        "Cheddar cremoso",
+        "Cebola caramelizada"
+      ],
+      "image": null,
+      "featured": false,
+      "badge": null,
+      "optionGroups": [
+        "burgerRemovals",
+        "burgerExtras"
+      ],
+      "crossSell": [
+        "batata-suprema",
+        "batata-allegre",
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "allegre-bacon",
+      "type": "burger",
+      "name": "Allegre Bacon",
+      "price": 35.0,
+      "description": "2 hambúrgueres artesanais de 100 g cada, duas fatias de queijo prato, bacon crocante e maionese especial no pão brioche.",
+      "shortCopy": "O clássico irresistível para quem ama bacon.",
+      "ingredients": [
+        "Pão brioche",
+        "2 hambúrgueres artesanais de 100 g",
+        "2 fatias de queijo prato",
+        "Bacon crocante",
+        "Maionese especial"
+      ],
+      "image": null,
+      "featured": false,
+      "badge": null,
+      "optionGroups": [
+        "burgerRemovals",
+        "burgerExtras"
+      ],
+      "crossSell": [
+        "batata-suprema",
+        "batata-allegre",
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "allegre-classico",
+      "type": "burger",
+      "name": "Allegre Clássico",
+      "price": 35.0,
+      "description": "2 hambúrgueres artesanais de 100 g cada, duas fatias de queijo prato, alface, tomate, cebola, ketchup e mostarda no pão brioche.",
+      "shortCopy": "O tradicional do jeito Allegre.",
+      "ingredients": [
+        "Pão brioche",
+        "2 hambúrgueres artesanais de 100 g",
+        "2 fatias de queijo prato",
+        "Alface",
+        "Tomate",
+        "Cebola",
+        "Ketchup",
+        "Mostarda"
+      ],
+      "image": null,
+      "featured": false,
+      "badge": null,
+      "optionGroups": [
+        "burgerRemovals",
+        "burgerExtras"
+      ],
+      "crossSell": [
+        "batata-suprema",
+        "batata-allegre",
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "batata-allegre",
+      "type": "side",
+      "name": "Batata Allegre",
+      "price": 15.0,
+      "portion": "250 g",
+      "description": "Batata frita crocante, dourada e temperada na medida certa.",
+      "shortCopy": "Crocante por fora. Macia por dentro.",
+      "crossSell": [
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "batata-suprema",
+      "type": "side",
+      "name": "Batata Suprema Allegre",
+      "price": 25.0,
+      "portion": "250 g",
+      "description": "Batata frita coberta com cheddar cremoso e bacon crocante.",
+      "shortCopy": "Acompanhamento? Não. Quase um prato.",
+      "featured": true,
+      "crossSell": [
+        "coca-cola"
+      ]
+    },
+    {
+      "id": "combo-sorriso",
+      "type": "combo",
+      "name": "Combo Sorriso",
+      "price": 48.6,
+      "description": "1 Hambúrguer Artesanal Allegre + 1 Batata Allegre (150 g) + 1 refrigerante lata 350 ml.",
+      "shortCopy": "Tudo o que você precisa para matar a fome.",
+      "featured": true,
+      "badge": "Combo Allegre",
+      "savingsNote": "Economize R$ 8,40 em relação à compra dos itens separadamente.",
+      "builder": {
+        "burgerSlots": 1,
+        "drinkSlots": 1,
+        "fries": {
+          "name": "Batata Allegre",
+          "portion": "150 g",
+          "qty": 1
+        }
+      }
+    },
+    {
+      "id": "combo-compartilhar",
+      "type": "combo",
+      "name": "Combo Compartilhar",
+      "price": 88.0,
+      "description": "2 Hambúrgueres Artesanais Allegre + 2 Batatas Allegre (150 g) + 2 refrigerantes lata 350 ml.",
+      "shortCopy": "Feito para dividir a fome, não o sabor.",
+      "builder": {
+        "burgerSlots": 2,
+        "drinkSlots": 2,
+        "fries": {
+          "name": "Batata Allegre",
+          "portion": "150 g",
+          "qty": 2
+        }
+      }
+    },
+    {
+      "id": "combo-familia",
+      "type": "combo",
+      "name": "Combo Família Allegre",
+      "price": 150.0,
+      "description": "4 Hambúrgueres Artesanais Allegre + 2 Batatas Supremas Allegre (150 g) + 4 refrigerantes lata 350 ml.",
+      "shortCopy": "Mesa cheia, fome resolvida.",
+      "builder": {
+        "burgerSlots": 4,
+        "drinkSlots": 4,
+        "fries": {
+          "name": "Batata Suprema Allegre",
+          "portion": "150 g",
+          "qty": 2
+        }
+      }
+    },
+    {
+      "id": "coca-cola",
+      "type": "drink",
+      "name": "Coca-Cola",
+      "price": 7.0,
+      "portion": "350 ml"
+    },
+    {
+      "id": "coca-zero",
+      "type": "drink",
+      "name": "Coca-Cola Zero",
+      "price": 7.0,
+      "portion": "350 ml"
+    },
+    {
+      "id": "pepsi",
+      "type": "drink",
+      "name": "Pepsi",
+      "price": 7.0,
+      "portion": "350 ml"
+    },
+    {
+      "id": "fanta-laranja",
+      "type": "drink",
+      "name": "Fanta Laranja",
+      "price": 7.0,
+      "portion": "350 ml"
+    },
+    {
+      "id": "fanta-uva",
+      "type": "drink",
+      "name": "Fanta Uva",
+      "price": 7.0,
+      "portion": "350 ml"
+    },
+    {
+      "id": "guarana",
+      "type": "drink",
+      "name": "Guaraná",
+      "price": 7.0,
+      "portion": "350 ml"
+    },
+    {
+      "id": "soda",
+      "type": "drink",
+      "name": "Soda",
+      "price": 7.0,
+      "portion": "350 ml"
+    }
+  ]
+}

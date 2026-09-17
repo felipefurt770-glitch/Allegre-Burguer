@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="description" content="Cardápio digital oficial Allegre Burguer. Pedido direto em Guarulhos." />
+  <meta property="og:title" content="Allegre Burguer — Cardápio Oficial" />
+  <meta property="og:description" content="Onde a fome termina e o sorriso começa." />
+  <title>Allegre Burguer — Cardápio Oficial</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar__inner">
+      <a class="mini-brand" href="#top">ALLEGRE BURGUER</a>
+      <nav id="nav" class="nav" aria-label="Categorias"></nav>
+      <button id="openCart" class="cart-action" type="button">
+        SACOLA <b id="cartCount">0</b>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="masthead">
+      <div class="shell masthead__grid">
+        <div class="masthead__identity">
+          <img class="brand-lockup" src="assets/logo-allegre.jpeg" alt="Logo oficial Allegre Burguer" />
+          <div class="official">CARDÁPIO OFICIAL</div>
+          <h1>Allegre Burguer</h1>
+          <p>Onde a fome termina e o sorriso começa.</p>
+        </div>
+
+        <figure class="masthead__burger">
+          <img src="assets/brasa-oficial.jpg" alt="Allegre Brasa" />
+          <figcaption>
+            <span>ESPECIALIDADE DA CASA</span>
+            <strong>Allegre Brasa</strong>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="shell">
+      <div class="divider"></div>
+
+      <section class="utility">
+        <label class="search">
+          <span>BUSCAR NO CARDÁPIO</span>
+          <input id="search" type="search" placeholder="Brasa, bacon, cheddar..." autocomplete="off" />
+        </label>
+        <div id="resultCount" class="result-count"></div>
+      </section>
+
+      <section class="menu">
+        <div id="menuRoot"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer__inner">
+      <div>
+        <strong>ALLEGRE BURGUER</strong>
+        <span>Guarulhos — SP</span>
+      </div>
+      <div class="footer__links">
+        <p>Onde a fome termina e o sorriso começa.</p>
+        <a href="politica-de-privacidade.html">Política de privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="mobileCart" class="mobile-cart" type="button">
+    <span><b id="mobileCartCount">0</b> ITEM(NS)</span>
+    <strong id="mobileCartTotal">R$ 0,00</strong>
+  </button>
+
+  <div id="modalBackdrop" class="backdrop" hidden></div>
+
+  <section id="productModal" class="sheet sheet--product" aria-modal="true" role="dialog" hidden>
+    <div class="sheet__head">
+      <div>
+        <span class="kicker">PERSONALIZE SEU PEDIDO</span>
+        <h2 id="modalTitle"></h2>
+      </div>
+      <button class="round" data-close="product" aria-label="Fechar">×</button>
+    </div>
+    <div id="modalBody" class="sheet__body"></div>
+    <div class="sheet__foot">
+      <div><small>TOTAL</small><strong id="modalTotal">R$ 0,00</strong></div>
+      <button id="modalAdd" class="button button--light" type="button">ADICIONAR À SACOLA</button>
+    </div>
+  </section>
+
+  <section id="cartDrawer" class="sheet sheet--cart" aria-modal="true" role="dialog" hidden>
+    <div class="sheet__head">
+      <div><span class="kicker">PEDIDO DIRETO</span><h2>Sua sacola</h2></div>
+      <button class="round" data-close="cart" aria-label="Fechar">×</button>
+    </div>
+    <div id="cartBody" class="sheet__body"></div>
+    <div class="sheet__foot sheet__foot--stack">
+      <div class="total-row"><span>TOTAL DOS ITENS</span><strong id="cartTotal">R$ 0,00</strong></div>
+      <button id="goCheckout" class="button button--light button--full" type="button">CONTINUAR</button>
+    </div>
+  </section>
+
+  <section id="checkoutDrawer" class="sheet sheet--checkout" aria-modal="true" role="dialog" hidden>
+    <div class="sheet__head">
+      <div><span class="kicker">ÚLTIMO PASSO</span><h2>Finalizar pedido</h2></div>
+      <button class="round" data-close="checkout" aria-label="Fechar">×</button>
+    </div>
+    <div class="sheet__body">
+      <div class="segmented">
+        <button id="modeDelivery" class="active" type="button">ENTREGA</button>
+        <button id="modePickup" type="button">RETIRADA</button>
+      </div>
+
+      <form id="checkoutForm" class="form" novalidate>
+        <label><span>NOME</span><input name="name" autocomplete="name" required placeholder="Seu nome" /></label>
+        <label><span>WHATSAPP</span><input name="phone" inputmode="tel" autocomplete="tel" required placeholder="(11) 99999-9999" /></label>
+
+        <div id="deliveryFields" class="form__group">
+          <label><span>CEP</span><input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" /></label>
+          <div class="form__row">
+            <label><span>ENDEREÇO</span><input name="address" autocomplete="street-address" placeholder="Rua / avenida" /></label>
+            <label class="small"><span>Nº</span><input name="number" placeholder="123" /></label>
+          </div>
+          <div class="form__row">
+            <label><span>BAIRRO</span><input name="district" placeholder="Bairro" /></label>
+            <label><span>COMPLEMENTO</span><input name="complement" placeholder="Apto, bloco..." /></label>
+          </div>
+          <p class="hint">A taxa de entrega será confirmada conforme o endereço.</p>
+        </div>
+
+        <label>
+          <span>PAGAMENTO</span>
+          <select name="payment">
+            <option>Pix</option>
+            <option>Cartão na entrega</option>
+            <option>Dinheiro</option>
+          </select>
+        </label>
+
+        <label><span>OBSERVAÇÕES</span><textarea name="notes" rows="3" placeholder="Alguma observação geral do pedido?"></textarea></label>
+
+        <label class="consent">
+          <input name="consent" type="checkbox" required />
+          <span>Autorizo o uso destes dados somente para atendimento e gestão deste pedido.</span>
+        </label>
+
+        <button class="button button--light button--full" type="submit">ENVIAR PEDIDO NO WHATSAPP</button>
+      </form>
+
+      <div id="orderPayloadPreview" class="payload-preview" hidden></div>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
