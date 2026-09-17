@@ -60,8 +60,8 @@ img{max-width:100%;display:block}
 }
 .nav button:hover,.nav button.active{color:#fff}
 .cart-action{
-  border:1px solid #fff;background:#fff;color:#050505;border-radius:6px;
-  padding:8px 12px;font-size:.66rem;letter-spacing:.12em;font-weight:700;
+  border:1px solid #fff;background:#fff;color:#050505;border-radius:12px;
+  padding:5.95px 12px;font-size:.66rem;letter-spacing:.12em;font-weight:700;
 }
 .cart-action b{
   margin-left:8px;display:inline-grid;place-items:center;
