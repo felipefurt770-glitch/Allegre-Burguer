@@ -64,8 +64,7 @@ img{max-width:100%;display:block}
   padding:5.95px 12px;font-size:.66rem;letter-spacing:.12em;font-weight:700;
 }
 .cart-action b{
-  margin-left:8px;display:inline-grid;place-items:center;
-  min-width:20px;height:20px;border-radius:50%;background:#050505;color:#fff;
+  margin-left:8px;color:#050505;
 }
 
 .masthead{padding:36px 0 0}
