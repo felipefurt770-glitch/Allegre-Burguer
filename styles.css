@@ -97,7 +97,7 @@ img{max-width:100%;display:block}
   letter-spacing:-.025em;
 }
 .masthead__identity p{
-  margin:9px 0 0;
+  margin:5px 0 0;
   font-family:var(--serif);
   font-size:1.25rem;
   color:#d6d6cf;
@@ -126,8 +126,6 @@ img{max-width:100%;display:block}
 .masthead__burger figcaption strong{
   display:block;font-family:var(--serif);font-size:1.55rem;margin-top:3px;
 }
-
-.divider{height:1px;background:var(--line);margin-top:0}
 
 .utility{
   min-height:76px;
