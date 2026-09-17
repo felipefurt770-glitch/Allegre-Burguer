@@ -109,7 +109,7 @@ function commitCurrent(){
  $('#modalAdd').disabled=true;
  state.cart.push({key:crypto.randomUUID?.()||String(Date.now()+Math.random()),id:p.id,qty:c.qty,unitPrice:p.price,config:c});
  save();closeAll();renderCart();$('#openCart').focus({preventScroll:true});
- animateAddToCart(source,p,c.qty);toast('Adicionado ? sacola');
+ animateAddToCart(source,p,c.qty);
  pushEvent('add_to_cart',{item_id:p.id,item_name:p.name,value:p.price*c.qty,quantity:c.qty});
 }
 function animateAddToCart(source,p,qty){
