@@ -73,7 +73,6 @@ img{max-width:100%;display:block}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .cart-action{
   display:flex;align-items:center;justify-content:flex-start;gap:8px;
-  min-width:142px;
   border:1px solid #fff;background:#fff;color:#050505;border-radius:12px;
   padding:7px 12px;font-family:var(--serif);font-size:1.02rem;letter-spacing:0;font-weight:700;
 }
