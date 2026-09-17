@@ -38,15 +38,15 @@
   "navigation": [
     {
       "id": "destaques",
-      "label": "Destaques"
-    },
-    {
-      "id": "hamburgueres",
-      "label": "Hambúrgueres"
+      "label": "Destaque Allegre"
     },
     {
       "id": "combos",
       "label": "Combos"
+    },
+    {
+      "id": "hamburgueres",
+      "label": "Hambúrgueres Artesanais"
     },
     {
       "id": "batatas",
@@ -60,12 +60,23 @@
   "categories": [
     {
       "id": "destaques",
-      "name": "Destaques",
+      "name": "Destaque Allegre",
       "description": "Escolhas que representam bem a experiência Allegre.",
       "productIds": [
         "allegre-brasa",
         "combo-sorriso",
-        "batata-suprema"
+        "batata-suprema",
+        "combo-compartilhar"
+      ]
+    },
+    {
+      "id": "combos",
+      "name": "Combos",
+      "description": "Monte sua combinação de forma simples e escolha os itens dentro do combo.",
+      "productIds": [
+        "combo-sorriso",
+        "combo-compartilhar",
+        "combo-familia"
       ]
     },
     {
@@ -79,16 +90,6 @@
         "allegre-cheddar",
         "allegre-bacon",
         "allegre-classico"
-      ]
-    },
-    {
-      "id": "combos",
-      "name": "Combos",
-      "description": "Monte sua combinação de forma simples e escolha os itens dentro do combo.",
-      "productIds": [
-        "combo-sorriso",
-        "combo-compartilhar",
-        "combo-familia"
       ]
     },
     {
@@ -367,7 +368,7 @@
         "Ketchup",
         "Mostarda"
       ],
-      "image": null,
+      "image": "assets/allegre-classico.jpeg",
       "featured": false,
       "badge": null,
       "optionGroups": [

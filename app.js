@@ -8,11 +8,12 @@ function pushEvent(event,payload={}){window.dataLayer=window.dataLayer||[];windo
 function save(){localStorage.setItem('allegre.cart.v2',JSON.stringify(state.cart));}
 function product(id){return state.data.products.find(p=>p.id===id)}
 function captureUTM(){const p=new URLSearchParams(location.search);['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid'].forEach(k=>{if(p.get(k))state.utm[k]=p.get(k)});if(Object.keys(state.utm).length)localStorage.setItem('allegre.utm',JSON.stringify(state.utm));else state.utm=JSON.parse(localStorage.getItem('allegre.utm')||'{}');}
-async function load(){captureUTM();state.data=await fetch('./menu.json',{cache:'no-store'}).then(r=>r.json());renderNav();renderMenu();renderCart();wire();pushEvent('menu_view',{source:state.utm.utm_source||'direct'});}
+async function load(){captureUTM();state.data=await fetch('./menu.json',{cache:'no-store'}).then(r=>r.json());renderMenu();renderCart();wire();pushEvent('menu_view',{source:state.utm.utm_source||'direct'});}
 function wire(){
- document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#modalBackdrop').hidden)closeAll();closeSearch()}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#modalBackdrop').hidden||!$('#searchPanel').hidden)e.preventDefault();if(!$('#modalBackdrop').hidden)closeAll();closeSearch()}});
  $('#search').addEventListener('input',e=>{state.query=e.target.value.toLowerCase().trim();renderMenu()});
  $('#openSearch').addEventListener('click',toggleSearch);
+ document.addEventListener('click',e=>{if(!$('#searchPanel').hidden&&!e.target.closest('#searchPanel, #openSearch'))closeSearch()});
  wireCategoryScroll();
  $('#openCart').addEventListener('click',()=>openSheet('cart'));$('[data-action="cart"]')?.addEventListener('click',()=>openSheet('cart'));
  $('#modalBackdrop').addEventListener('click',closeAll);$$('[data-close]').forEach(b=>b.addEventListener('click',closeAll));
@@ -32,21 +33,25 @@ function wireCategoryScroll(){
  update();
  document.fonts?.ready.then(schedule);
 }
-function toggleSearch(){const panel=$('#searchPanel');if(panel.hidden){panel.hidden=false;$('#openSearch').setAttribute('aria-expanded','true');$('#search').focus()}else closeSearch()}
-function closeSearch(){const panel=$('#searchPanel');if(!panel.hidden){panel.hidden=true;$('#openSearch').setAttribute('aria-expanded','false');if(state.query){state.query='';$('#search').value='';renderMenu()}}}
+function toggleSearch(){const panel=$('#searchPanel');if(panel.hidden){panel.hidden=false;$('#openSearch').setAttribute('aria-expanded','true');$('#search').focus({preventScroll:true})}else closeSearch()}
+function closeSearch(){const panel=$('#searchPanel');if(!panel.hidden){panel.hidden=true;$('#openSearch').setAttribute('aria-expanded','false');$('#openSearch').focus({preventScroll:true})}}
 function renderNav(){
- const sections=$$('#menuRoot .menu-section');
- $('#nav').innerHTML=sections.map(section=>{
-  const label=section.id==='destaques'?'Destaque':state.data.categories.find(c=>c.id===section.id).name;
-  return `<button type="button" data-nav="${section.id}" aria-controls="${section.id}">${label}</button>`;
- }).join('');
- $$('[data-nav]').forEach(button=>button.onclick=()=>{
-  const section=document.getElementById(button.dataset.nav);
-  if(!section)return;
-  const offset=$('.topbar').offsetHeight+$('#nav').offsetHeight+12;
-  scrollToCategory(window.scrollY+section.getBoundingClientRect().top-offset);
- });
+ const markup=state.data.categories.map(c=>`<a href="#${c.id}" data-nav="${c.id}">${c.name}</a>`).join('');
+ $('#nav').innerHTML=markup;
+ $('#searchCategories').innerHTML=markup;
+ $$('[data-nav]').forEach(link=>link.onclick=e=>{e.preventDefault();navigateCategory(link.dataset.nav)});
  updateCategoryTrail();
+}
+function navigateCategory(id){
+ // Choosing a category exits the filter so every section remains reachable.
+ if(state.query){state.query='';$('#search').value='';renderMenu()}
+ closeSearch();
+ const section=document.getElementById(id);
+ if(!section)return;
+ const offset=$('.topbar').offsetHeight+$('#nav').offsetHeight+12;
+ const heading=$('h2',section);
+ heading.tabIndex=-1;heading.focus({preventScroll:true});
+ scrollToCategory(window.scrollY+section.getBoundingClientRect().top-offset);
 }
 function scrollToCategory(top){
  cancelCategoryScroll();
@@ -77,105 +82,54 @@ function updateCategoryTrail(){
   if(top<=boundary&&top>activeTop+1){active=section;activeTop=top}
  }
  if(window.scrollY>0&&Math.ceil(window.scrollY+innerHeight)>=document.documentElement.scrollHeight-2)active=sections.at(-1);
- for(const button of $$('[data-nav]',nav)){
+ for(const button of $$('[data-nav]')){
   const selected=button.dataset.nav===active?.id,changed=selected&&!button.classList.contains('active');
   button.classList.toggle('active',selected);
   if(selected)button.setAttribute('aria-current','location');else button.removeAttribute('aria-current');
-  if(changed){
+  if(changed&&nav.contains(button)){
    const left=button.offsetLeft-(nav.clientWidth-button.offsetWidth)/2;
    nav.scrollTo({left,behavior:visible&&!matchMedia('(prefers-reduced-motion: reduce)').matches?'smooth':'instant'});
   }
  }
 }
-function searchText(p){return [p.name,p.description,p.shortCopy,...(p.ingredients||[])].join(' ').toLowerCase()}
-function sectionMarkup(c,items,kind='default'){
-  if(!c||!items.length)return '';
-  return `<section id="${c.id}" class="menu-section">
-    <div class="section-head"><div><h2>${c.name}</h2><p>${c.description||''}</p></div></div>
-    <div class="menu-list">${items.map((p,i)=>card(p,i,c.id,kind)).join('')}</div>
-  </section>`;
+function searchText(p){
+ const categories=state.data.categories.filter(c=>c.productIds.includes(p.id)).map(c=>c.name);
+ return [p.name,p.description,p.shortCopy,...(p.ingredients||[]),...categories].join(' ').toLowerCase();
+}
+function productMedia(p){
+ return p.image
+  ? '<img src="'+p.image+'" alt="'+p.name+'" width="320" height="320" loading="lazy" decoding="async">'
+  : '<span class="photo-placeholder"><span>Foto em breve</span></span>';
+}
+function sectionMarkup(category,items){
+ if(!items.length)return '';
+ const titleId=category.id+'Title';
+ const heading='<div class="section-head"><h2 id="'+titleId+'">'+category.name+'</h2></div>';
+ if(category.id==='destaques')return '<section id="'+category.id+'" class="menu-section menu-section--highlights" aria-labelledby="'+titleId+'">'+heading+
+  '<div class="spotlight" role="group" aria-label="Produtos em destaque">'+items.map(p=>
+   '<button class="spotlight__item" type="button" data-product="'+p.id+'" aria-label="Ver '+p.name+' por '+money(p.price)+'">'+
+   '<span class="spotlight__photo">'+productMedia(p)+'</span><span class="spotlight__price">'+money(p.price)+'</span><strong>'+p.name+'</strong></button>'
+  ).join('')+'</div></section>';
+ return '<section id="'+category.id+'" class="menu-section" aria-labelledby="'+titleId+'">'+heading+
+  '<div class="menu-list">'+items.map(card).join('')+'</div></section>';
 }
 function renderMenu(){
-  const q=state.query;
-  const cat=id=>state.data.categories.find(c=>c.id===id);
-  const filtered=c=>c ? c.productIds.map(product).filter(Boolean).filter(p=>!q||searchText(p).includes(q)) : [];
-
-  const burgers=filtered(cat('hamburgueres'));
-  const fries=filtered(cat('batatas'));
-  const drinks=filtered(cat('bebidas'));
-  const combos=filtered(cat('combos'));
-  const highlights=filtered(cat('destaques'));
-
-  const count=[...new Set([...burgers,...fries,...drinks,...combos].map(p=>p.id))].length;
-  $('#resultCount').textContent=q?`${count} resultado(s)`:'';  
-
-  const spotlight = !q && highlights.length
-    ? `<section id="destaques" class="menu-section menu-section--highlights" aria-labelledby="highlightsTitle">
-      <div class="section-head"><h2 id="highlightsTitle">Destaque Allegre</h2></div>
-      <div class="spotlight">
-        ${highlights.map(p=>`<button class="spotlight__item${p.image?' spotlight__item--photo':''}" type="button" data-product="${p.id}">
-          ${p.image?`<img class="spotlight__photo" src="${p.image}" alt="" width="64" height="64" loading="lazy" decoding="async">`:''}
-          <strong>${p.name}</strong><em>+</em>
-        </button>`).join('')}
-      </div></section>` : '';
-
-  const summaryProducts = ['hamburgueres','batatas','bebidas','combos']
-    .flatMap(id=>filtered(cat(id)))
-    .filter((p,i,arr)=>arr.findIndex(x=>x.id===p.id)===i);
-  const summary = !q ? `
-    <div class="price-summary" aria-label="Tabela resumida de precos">
-      <div class="price-summary__title">TABELA RESUMIDA</div>
-      ${summaryProducts.map(p=>`<div class="price-summary__row"><span>${p.name}${p.portion?` (${p.portion})`:''}</span><span>${money(p.price)}</span></div>`).join('')}
-    </div>` : '';
-
-  $('#menuRoot').innerHTML = `
-    ${spotlight}
-    <div class="menu-board">
-      <div class="menu-column menu-column--left">
-        ${sectionMarkup(cat('hamburgueres'),burgers,'burger')}
-        ${summary}
-      </div>
-      <div class="menu-column menu-column--right">
-        ${sectionMarkup(cat('batatas'),fries,'simple')}
-        ${sectionMarkup(cat('bebidas'),drinks,'drink')}
-        ${sectionMarkup(cat('combos'),combos,'simple')}
-      </div>
-    </div>`;
-
-  $$('[data-product]').forEach(b=>b.onclick=()=>openProduct(b.dataset.product));
-  renderNav();
+ const filtered=state.data.categories.map(category=>({category,items:category.productIds.map(product).filter(Boolean).filter(p=>!state.query||searchText(p).includes(state.query))}));
+ const count=new Set(filtered.flatMap(group=>group.items.map(p=>p.id))).size;
+ $('#resultCount').textContent=state.query?count+' resultado(s)':'';
+ $('#menuRoot').innerHTML=filtered.map(({category,items})=>sectionMarkup(category,items)).join('')||'<p class="empty-results">Nenhum produto encontrado. Tente outro nome ou ingrediente.</p>';
+ $$('[data-product]',$('#menuRoot')).forEach(button=>button.onclick=()=>openProduct(button.dataset.product));
+ renderNav();
 }
-function card(p,index,categoryId,kind='default'){
-  const number = kind==='burger' ? `<div class="product-row__number">${index+1}</div>` : '';
-  const cls = kind==='drink' ? 'product-row product-row--simple product-row--drink' :
-              kind==='simple' ? 'product-row product-row--simple' : 'product-row';
-  const desc = kind==='drink' ? '' : `<p class="product-row__desc">${p.description||''}</p>`;
-  const short = p.shortCopy && kind!=='drink' ? `<p class="product-row__short">${p.shortCopy}</p>` : '';
-  if(p.image)return `<article class="${cls} product-row--photo">
-    <div class="product-row__main">
-      <div class="product-row__heading">${number}<h3>${p.name}</h3></div>
-      ${desc}${short}
-      <span class="product-row__price">${money(p.price)}</span>
-    </div>
-    <div class="product-row__visual">
-      <button class="product-row__photo" type="button" data-product="${p.id}" aria-label="Ver ${p.name}">
-        <img src="${p.image}" alt="${p.name}" width="144" height="144" loading="lazy" decoding="async">
-      </button>
-      <button class="product-row__action" type="button" data-product="${p.id}" aria-label="Escolher ${p.name}">+</button>
-    </div>
-  </article>`;
-  return `<article class="${cls}">
-    ${number}
-    <div class="product-row__main">
-      <div class="product-row__titleline">
-        <h3>${p.name}</h3>
-        <span class="product-row__price">${money(p.price)}</span>
-      </div>
-      ${desc}
-      ${short}
-    </div>
-    <button class="product-row__action" type="button" data-product="${p.id}" aria-label="${p.type==='combo'?'Montar':'Escolher'} ${p.name}">+</button>
-  </article>`;
+function card(p){
+ return '<article class="product-row'+(p.type==='drink'?' product-row--drink':'')+'">'+
+  '<div class="product-row__visual">'+
+   '<button class="product-row__photo" type="button" data-product="'+p.id+'" aria-label="Ver '+p.name+'">'+productMedia(p)+'</button>'+
+   '<button class="product-row__action" type="button" data-product="'+p.id+'" aria-label="'+(p.type==='combo'?'Montar':'Escolher')+' '+p.name+'">+</button>'+
+  '</div><div class="product-row__main"><h3>'+p.name+'</h3>'+
+   (p.description?'<p class="product-row__desc">'+p.description+'</p>':'')+
+   (p.shortCopy?'<p class="product-row__short">'+p.shortCopy+'</p>':'')+
+   '<span class="product-row__price">'+money(p.price)+'</span></div></article>';
 }
 function openProduct(id){const p=product(id);state.current=p;state.currentConfig={qty:1,removed:[],extras:[],burgers:[],drinks:[],notes:''};$('#modalAdd').disabled=false;$('#modalTitle').textContent=p.name;$('#modalBody').innerHTML=modalContent(p);updateModalTotal();openSheet('product');wireModal(p);pushEvent('view_item',{item_id:p.id,item_name:p.name,value:p.price});}
 function modalContent(p){let html='';if(p.image)html+=`<div class="modal-photo"><img src="${p.image}" alt="${p.name}"></div>`;html+=`<p class="modal-desc">${p.description||''}</p>`;if(p.ingredients?.length){html+=`<div class="option-group"><h3>Ingredientes</h3><small>Toque para retirar algum ingrediente.</small><div class="choice-list">${p.ingredients.map((x,i)=>`<div class="choice"><label><input type="checkbox" data-remove="${i}"><span>${x}</span></label><span>retirar</span></div>`).join('')}</div></div>`}
