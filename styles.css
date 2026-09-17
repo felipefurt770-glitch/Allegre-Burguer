@@ -83,7 +83,7 @@ img{max-width:100%;display:block}
   margin:0;text-align:left;
 }
 .masthead__copy h1{
-  position:absolute;left:22px;top:64%;transform:none;
+  position:absolute;left:22px;top:60%;transform:none;
   width:min(760px,calc(100% - 44px));margin:0;text-align:left;
   font-family:var(--serif);
   font-weight:600;
@@ -456,7 +456,7 @@ img{max-width:100%;display:block}
   .masthead__burger img,.masthead__burger video{min-height:0;height:auto}
   .masthead__copy{inset:0;width:auto}
   .masthead__copy .official{left:18px;top:10px}
-  .masthead__copy h1{left:18px;top:64%;width:calc(100% - 36px);font-size:clamp(2.25rem,10vw,3.1rem)}
+  .masthead__copy h1{left:18px;top:60%;width:calc(100% - 36px);font-size:clamp(2.25rem,10vw,3.1rem)}
   .masthead__burger:before{
     background:radial-gradient(circle at center,rgba(0,0,0,.55),rgba(0,0,0,.1) 65%),
                linear-gradient(0deg,rgba(0,0,0,.68),transparent 38%);
