@@ -60,11 +60,13 @@ function renderMenu(){
   $('#resultCount').textContent=q?`${count} resultado(s)`:'';  
 
   const spotlight = !q && highlights.length
-    ? `<div id="destaques" class="spotlight">
+    ? `<section id="destaques" class="menu-section menu-section--highlights" aria-labelledby="highlightsTitle">
+      <div class="section-head"><h2 id="highlightsTitle">Destaque Allegre</h2></div>
+      <div class="spotlight">
         ${highlights.map(p=>`<button class="spotlight__item" type="button" data-product="${p.id}">
-          <span>DESTAQUE ALLEGRE</span><strong>${p.name}</strong><em>+</em>
+          <strong>${p.name}</strong><em>+</em>
         </button>`).join('')}
-      </div>` : '';
+      </div></section>` : '';
 
   const summaryProducts = ['hamburgueres','batatas','bebidas','combos']
     .flatMap(id=>filtered(cat(id)))
