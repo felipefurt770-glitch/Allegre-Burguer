@@ -95,7 +95,7 @@ async function main() {
         const carousel=document.querySelector('.spotlight'),cards=[...carousel.children],box=rect(carousel);
         return {
           overflow:document.documentElement.scrollWidth>innerWidth,
-          heroClear:title.right<=image.left+1&&faith.right<=image.left+1&&title.bottom<=faith.top+1&&faith.bottom<=smile.top+1,
+          heroClear:title.right<=image.left+image.width*.4+1&&faith.right<=image.left+image.width*.4+1&&smile.right<=image.left+image.width*.4+1&&title.bottom<=faith.top+1&&faith.bottom<=smile.top+1,
           noNumbers:!document.querySelector('.product-row__number'),
           ordered:positions.every((p,i)=>!i||p>positions[i-1]),
           mediaLeft:rows.every(row=>rect(row.querySelector('.product-row__visual')).right<=rect(row.querySelector('.product-row__main')).left),

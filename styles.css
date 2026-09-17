@@ -111,11 +111,10 @@ img{max-width:100%;display:block}
 .masthead{padding:0;background:var(--bg)}
 .masthead__grid{width:100%}
 .masthead__burger{
-  margin:0 auto;max-width:1440px;display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);
-  grid-template-rows:clamp(280px,43vw,620px);overflow:hidden;
+  position:relative;margin:0 auto;max-width:1440px;overflow:hidden;
 }
-.masthead__burger>img{grid-column:2;grid-row:1;width:100%;height:100%;object-fit:contain;align-self:center}
-.masthead__copy{grid-column:1;grid-row:1;align-self:start;padding:clamp(24px,5vw,72px) 0 20px clamp(20px,5vw,72px);color:#fff}
+.masthead__burger>img{width:100%;height:min(100vw,800px);object-fit:cover;object-position:center 55%}
+.masthead__copy{position:absolute;top:0;left:0;width:40%;padding:clamp(24px,5vw,72px) 0 20px clamp(20px,5vw,72px);color:#fff}
 .masthead__copy h1{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(2.15rem,5.5vw,4.8rem);line-height:1;letter-spacing:-.025em}
 .masthead__copy p{margin:18px 0 0;font-family:var(--serif);font-size:clamp(1rem,2vw,1.45rem);line-height:1.3}
 .masthead__smile{display:block;width:clamp(64px,9vw,130px);height:auto;margin-top:18px}
