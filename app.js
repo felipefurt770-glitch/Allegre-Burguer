@@ -71,7 +71,7 @@ function scrollToCategory(top){
 }
 function updateCategoryTrail(){
  const nav=$('#nav'),header=$('.topbar'),sections=$$('#menuRoot .menu-section');
- const visible=sections.length>0&&window.scrollY>=SEARCH_COLLAPSE_DISTANCE;
+ const visible=sections.length>0&&window.scrollY>=SEARCH_COLLAPSE_DISTANCE-30;
  nav.classList.toggle('is-visible',visible);nav.inert=!visible;
  nav.setAttribute('aria-hidden',String(!visible));
  document.documentElement.style.setProperty('--menu-scroll-offset',(header.offsetHeight+nav.offsetHeight+12)+'px');
