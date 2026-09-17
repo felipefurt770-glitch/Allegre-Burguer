@@ -97,7 +97,8 @@ img{max-width:100%;display:block}
   width:100%;height:auto;min-height:0;object-fit:contain;
 }
 .masthead__burger figcaption{
-  position:absolute;z-index:2;left:22px;top:79%;bottom:auto;text-align:left;
+  position:absolute;z-index:2;left:50%;top:84%;bottom:auto;transform:translateX(-50%);text-align:center;
+  width:calc(100% - 44px);
   color:#f7f7f3;font-family:var(--serif);font-size:clamp(1rem,1.6vw,1.2rem);
 }
 
@@ -448,7 +449,7 @@ img{max-width:100%;display:block}
   .masthead__burger img,.masthead__burger video{min-height:0;height:auto}
   .masthead__copy{inset:0;width:auto}
   .masthead__copy h1{left:28px;top:30px;width:calc(100% - 46px);font-size:clamp(2.25rem,10vw,3.1rem)}
-  .masthead__burger figcaption{top:79%}
+  .masthead__burger figcaption{top:84%;width:calc(100% - 36px)}
   .masthead__burger:before{
     background:radial-gradient(circle at center,rgba(0,0,0,.55),rgba(0,0,0,.1) 65%),
                linear-gradient(0deg,rgba(0,0,0,.68),transparent 38%);
