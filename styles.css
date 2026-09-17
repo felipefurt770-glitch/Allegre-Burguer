@@ -50,16 +50,26 @@ img{max-width:100%;display:block}
 .header-logo{
   display:block;width:auto;height:clamp(56px,5.5vw,70px);max-width:100%;object-fit:contain;
 }
-.nav{
-  margin-left:auto;display:flex;align-items:center;gap:18px;overflow:auto;scrollbar-width:none;
+.category-trail{
+  position:absolute;top:100%;left:0;width:100%;height:48px;
+  display:flex;align-items:stretch;gap:22px;padding-inline:max(16px,calc((100% - var(--max))/2));
+  overflow-x:auto;scrollbar-width:none;background:rgba(5,5,5,.97);border-bottom:1px solid var(--line-soft);
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-8px);
+  transition:opacity .22s ease,transform .22s ease,visibility .22s;
 }
-.nav::-webkit-scrollbar{display:none}
-.nav button{
-  border:0;background:transparent;color:#aaa;padding:4px 0;
-  font-size:.64rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;
+.category-trail::-webkit-scrollbar{display:none}
+.category-trail.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.category-trail button{
+  flex-shrink:0;border:0;border-bottom:2px solid transparent;padding:0 2px;background:transparent;color:#92928c;
+  font-size:.64rem;font-weight:600;letter-spacing:.08em;white-space:nowrap;
+  transition:color .22s ease,border-color .22s ease;
 }
-.nav button:hover,.nav button.active{color:#fff}
+.category-trail button:hover,.category-trail button.active{color:#fff}
+.category-trail button.active{border-bottom-color:#fff}
+.category-trail button:focus-visible{outline-offset:-4px}
+@media(prefers-reduced-motion:reduce){.category-trail,.category-trail button{transition:none}}
 .search-action{
+  margin-left:auto;
   --search-expansion:1;
   display:flex;align-items:center;flex-shrink:0;gap:calc(8px * var(--search-expansion));border:1px solid #fff;background:#fff;color:#050505;
   border-radius:12px;padding:5.95px 12px;font-family:var(--serif);font-size:1.02rem;font-weight:700;line-height:1;
@@ -151,7 +161,7 @@ img{max-width:100%;display:block}
 
 .menu-section{
   padding:18px 0 8px;
-  scroll-margin-top:72px;
+  scroll-margin-top:var(--menu-scroll-offset,132px);
 }
 .menu-section + .menu-section{margin-top:4px}
 .section-head{
@@ -452,7 +462,6 @@ img{max-width:100%;display:block}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media(max-width:900px){
-  .nav{display:none}
   .menu-column--left{padding-right:22px}
   .menu-column--right{padding-left:22px}
 }
