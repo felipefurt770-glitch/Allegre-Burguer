@@ -113,7 +113,8 @@ function renderMenu(){
     ? `<section id="destaques" class="menu-section menu-section--highlights" aria-labelledby="highlightsTitle">
       <div class="section-head"><h2 id="highlightsTitle">Destaque Allegre</h2></div>
       <div class="spotlight">
-        ${highlights.map(p=>`<button class="spotlight__item" type="button" data-product="${p.id}">
+        ${highlights.map(p=>`<button class="spotlight__item${p.image?' spotlight__item--photo':''}" type="button" data-product="${p.id}">
+          ${p.image?`<img class="spotlight__photo" src="${p.image}" alt="" width="64" height="64" loading="lazy" decoding="async">`:''}
           <strong>${p.name}</strong><em>+</em>
         </button>`).join('')}
       </div></section>` : '';
@@ -150,6 +151,19 @@ function card(p,index,categoryId,kind='default'){
               kind==='simple' ? 'product-row product-row--simple' : 'product-row';
   const desc = kind==='drink' ? '' : `<p class="product-row__desc">${p.description||''}</p>`;
   const short = p.shortCopy && kind!=='drink' ? `<p class="product-row__short">${p.shortCopy}</p>` : '';
+  if(p.image)return `<article class="${cls} product-row--photo">
+    <div class="product-row__main">
+      <div class="product-row__heading">${number}<h3>${p.name}</h3></div>
+      ${desc}${short}
+      <span class="product-row__price">${money(p.price)}</span>
+    </div>
+    <div class="product-row__visual">
+      <button class="product-row__photo" type="button" data-product="${p.id}" aria-label="Ver ${p.name}">
+        <img src="${p.image}" alt="${p.name}" width="144" height="144" loading="lazy" decoding="async">
+      </button>
+      <button class="product-row__action" type="button" data-product="${p.id}" aria-label="Escolher ${p.name}">+</button>
+    </div>
+  </article>`;
   return `<article class="${cls}">
     ${number}
     <div class="product-row__main">
