@@ -9,7 +9,7 @@ const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const menu = JSON.parse(fs.readFileSync(path.join(root, 'menu.json'), 'utf8'));
 const order = ['destaques', 'combos', 'hamburgueres', 'batatas', 'bebidas'];
-const highlights = ['allegre-brasa', 'combo-sorriso', 'batata-suprema', 'combo-compartilhar'];
+const highlights = ['allegre-brasa', 'batata-suprema', 'combo-compartilhar', 'combo-sorriso'];
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 async function main() {
@@ -112,13 +112,14 @@ async function main() {
           square:cards.every(c=>{const r=rect(c.querySelector('.spotlight__photo'));return Math.abs(r.width-r.height)<1}),
           visible:cards.filter(c=>rect(c).left>=box.left-1&&rect(c).right<=box.right+1).length,
           scrollable:carousel.scrollWidth>carousel.clientWidth,
+          grid:cards.length===4&&Math.abs(rect(cards[0]).top-rect(cards[1]).top)<1&&Math.abs(rect(cards[2]).top-rect(cards[3]).top)<1&&rect(cards[2]).top>=rect(cards[0]).bottom&&rect(cards[1]).left>rect(cards[0]).left&&Math.abs(rect(cards[0]).left-rect(cards[2]).left)<1,
           titleStyles:rows.map(row=>{const s=getComputedStyle(row.querySelector('h3'));return {drink:row.classList.contains('product-row--drink'),size:s.fontSize,weight:s.fontWeight,family:s.fontFamily}})
         };
       })()`);
-      for (const key of ['heroClear','heroSizes','sloganLines','smileShift','blessingCentered','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
+      for (const key of ['grid','heroClear','heroSizes','sloganLines','smileShift','blessingCentered','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
       assert(!geometry.overflow, width + ': overflow');
-      assert.equal(geometry.visible, width < 680 ? 3 : 4);
-      assert.equal(geometry.scrollable, width < 680);
+      assert.equal(geometry.visible, 4);
+      assert.equal(geometry.scrollable, false);
       for (const style of geometry.titleStyles) {
         assert(style.family.includes('Cormorant Garamond'));
         assert.equal(style.weight, style.drink ? '500' : '600');
@@ -132,7 +133,7 @@ async function main() {
         await send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[touch]});
         for(let step=1;step<=6;step++){await send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:touch.x-step*30,y:touch.y}]});await delay(20);}
         await send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await delay(300);
-        assert(await evaluate('document.querySelector(".spotlight").scrollLeft>0'));
+        assert(await evaluate('document.querySelector(".spotlight").scrollLeft===0'));
         await evaluate('document.querySelector(".spotlight").scrollTo({left:0,behavior:"instant"})');
       }
       await click('#openSearch');
@@ -149,7 +150,7 @@ async function main() {
       }
       await evaluate('document.querySelector("#hamburgueres").scrollIntoView({behavior:"instant"})'); await delay(120); await screenshot('products-' + width);
       await evaluate('document.querySelector(".footer").scrollIntoView({behavior:"instant"})'); await delay(120); await screenshot('footer-' + width);
-      console.log('PASS layout, carousel, category links, search focus: ' + width + 'px');
+      console.log('PASS layout, highlights grid, category links, search focus: ' + width + 'px');
     }
     await click('#openSearch');
     await evaluate('document.querySelector("#search").value="bacon";document.querySelector("#search").dispatchEvent(new Event("input",{bubbles:true}))');
