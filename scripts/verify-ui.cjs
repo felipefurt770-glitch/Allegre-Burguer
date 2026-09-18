@@ -107,7 +107,7 @@ async function main() {
           noNumbers:!document.querySelector('.product-row__number'),
           ordered:positions.every((p,i)=>!i||p>positions[i-1]),
           mediaLeft:rows.every(row=>rect(row.querySelector('.product-row__visual')).right<=rect(row.querySelector('.product-row__main')).left),
-          addInside:rows.every(row=>{const a=rect(row.querySelector('.product-row__action')),b=rect(row.querySelector('.product-row__visual'));return a.left>=b.left&&a.left<b.left+12&&a.bottom<=b.bottom&&a.bottom>b.bottom-12&&a.width>=40}),
+          addInside:rows.every(row=>{const a=rect(row.querySelector('.product-row__action')),b=rect(row),photo=rect(row.querySelector('.product-row__visual'));return a.left>=photo.right&&Math.abs(a.right-b.right)<1&&a.bottom<=b.bottom-19&&a.top>=b.top&&a.width>=44}),
           allTextFits:rows.every(row=>{const text=row.querySelector('.product-row__main');return text.scrollWidth<=text.clientWidth+1}),
           square:cards.every(c=>{const r=rect(c.querySelector('.spotlight__photo'));return Math.abs(r.width-r.height)<1}),
           visible:cards.filter(c=>rect(c).left>=box.left-1&&rect(c).right<=box.right+1).length,

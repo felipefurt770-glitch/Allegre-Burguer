@@ -142,7 +142,7 @@ img{max-width:100%;display:block}
 .section-head{
   text-align:center;
   padding:8px 0 7px;
-  margin-bottom:0;
+  margin:8% 0;
 }
 .section-head h2{
   margin:0;
@@ -167,11 +167,12 @@ img{max-width:100%;display:block}
 .product-row__photo .photo-placeholder>span{align-self:start;margin-top:14px}
 .product-row__main{min-width:0}
 .product-row h3{margin:0;font-family:var(--serif);font-weight:600;font-size:1.55rem;line-height:1}
-.product-row__price{display:block;margin:12px 0 0;font-size:.75rem;letter-spacing:.08em;font-weight:600;white-space:nowrap}
+.product-row__footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;flex-wrap:wrap}
+.product-row__price{display:block;margin:0;font-size:.75rem;letter-spacing:.08em;font-weight:600;white-space:nowrap}
 .product-row__desc{color:#d0d0cb;font-family:var(--serif);font-size:1.02rem;line-height:1.25;margin:6px 0 0;max-width:100%}
 .product-row__short{color:#b4b4ad;font-family:var(--serif);font-style:italic;font-size:.96rem;margin:5px 0 0}
 .product-row__action{
-  position:absolute;left:6px;bottom:6px;width:44px;height:44px;border:1px solid var(--line);background:rgba(5,5,5,.9);color:#fff;
+  flex:0 0 44px;margin-left:auto;width:44px;height:44px;border:1px solid var(--line);background:rgba(5,5,5,.9);color:#fff;
   border-radius:50%;font-size:1.25rem;line-height:1;display:grid;place-items:center;transition:background .18s ease,color .18s ease;
 }
 .product-row__action:hover{background:#fff;color:#050505}

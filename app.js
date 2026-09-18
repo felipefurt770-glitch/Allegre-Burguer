@@ -125,11 +125,11 @@ function card(p){
  return '<article class="product-row'+(p.type==='drink'?' product-row--drink':'')+'">'+
   '<div class="product-row__visual">'+
    '<button class="product-row__photo" type="button" data-product="'+p.id+'" aria-label="Ver '+p.name+'">'+productMedia(p)+'</button>'+
-   '<button class="product-row__action" type="button" data-product="'+p.id+'" aria-label="'+(p.type==='combo'?'Montar':'Escolher')+' '+p.name+'">+</button>'+
   '</div><div class="product-row__main"><h3>'+p.name+'</h3>'+
    (p.description?'<p class="product-row__desc">'+p.description+'</p>':'')+
    (p.shortCopy?'<p class="product-row__short">'+p.shortCopy+'</p>':'')+
-   '<span class="product-row__price">'+money(p.price)+'</span></div></article>';
+   '<div class="product-row__footer"><span class="product-row__price">'+money(p.price)+'</span>'+
+   '<button class="product-row__action" type="button" data-product="'+p.id+'" aria-label="'+(p.type==='combo'?'Montar':'Escolher')+' '+p.name+'">+</button></div></div></article>';
 }
 function openProduct(id){const p=product(id);state.current=p;state.currentConfig={qty:1,removed:[],extras:[],burgers:[],drinks:[],notes:''};$('#modalAdd').disabled=false;$('#modalTitle').textContent=p.name;$('#modalBody').innerHTML=modalContent(p);updateModalTotal();openSheet('product');wireModal(p);pushEvent('view_item',{item_id:p.id,item_name:p.name,value:p.price});}
 function modalContent(p){let html='';if(p.image)html+=`<div class="modal-photo"><img src="${p.image}" alt="${p.name}"></div>`;html+=`<p class="modal-desc">${p.description||''}</p>`;if(p.ingredients?.length){html+=`<div class="option-group"><h3>Ingredientes</h3><small>Toque para retirar algum ingrediente.</small><div class="choice-list">${p.ingredients.map((x,i)=>`<div class="choice"><label><input type="checkbox" data-remove="${i}"><span>${x}</span></label><span>retirar</span></div>`).join('')}</div></div>`}
