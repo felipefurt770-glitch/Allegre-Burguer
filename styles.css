@@ -113,11 +113,12 @@ img{max-width:100%;display:block}
 .masthead__burger{
   position:relative;margin:0 auto;max-width:1440px;overflow:hidden;
 }
-.masthead__burger>img{width:100%;height:min(100vw,800px);object-fit:cover;object-position:center 55%}
-.masthead__copy{position:absolute;top:0;left:0;width:40%;padding:clamp(24px,5vw,72px) 0 20px clamp(20px,5vw,72px);color:#fff}
-.masthead__copy h1{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(3.096rem,7.92vw,6.912rem);line-height:1;letter-spacing:-.025em}
-.masthead__copy p{margin:18px 0 0;font-family:var(--serif);font-size:clamp(1.2rem,2.4vw,1.74rem);line-height:1.3}
-.masthead__smile{display:block;width:clamp(84.48px,11.88vw,171.6px);height:auto;margin-top:18px;transform:translateX(22%)}
+.masthead__burger>img{width:100%;height:min(100vw,960px);object-fit:cover;object-position:center 55%;margin-top:max(-12vw,-96px);margin-bottom:max(-8vw,-64px)}
+.masthead__copy{position:absolute;top:0;left:0;width:40%;padding:clamp(8px,1vw,14px) 0 20px clamp(20px,5vw,72px);color:#fff}
+.masthead__copy h1{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(3.096rem,7.92vw,6.912rem);line-height:1.1;letter-spacing:-.025em}
+.masthead__copy h1 span{display:block}
+.masthead__copy p{margin:8px 0 0;font-family:var(--serif);font-size:clamp(1.2rem,2.4vw,1.74rem);line-height:1.3}
+.masthead__smile{display:block;width:clamp(84.48px,11.88vw,171.6px);height:auto;margin-top:8px;transform:translateX(22%)}
 .masthead__blessing{position:absolute;left:0;right:0;bottom:clamp(16px,3vw,32px);margin:0;padding:0 16px;text-align:center;color:#fff;font-family:var(--serif);font-size:clamp(1rem,1.8vw,1.35rem);line-height:1.3}
 
 .search{width:min(430px,100%)}
@@ -343,8 +344,8 @@ img{max-width:100%;display:block}
   .header-logo{height:54px;width:auto}
   .cart-action--floating{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px))}
   .search-panel{right:14px;width:calc(100% - 28px)}
-  .masthead__copy p{margin-top:14px}
-  .masthead__smile{margin-top:14px}
+  .masthead__copy p{margin-top:8px}
+  .masthead__smile{margin-top:8px}
   .spotlight{--card-gap:10px;grid-auto-columns:calc((100% - 3 * var(--card-gap)) / 3.15)}
   .product-row{gap:14px}
   .product-row h3{font-size:1.45rem}

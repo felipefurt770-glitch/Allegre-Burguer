@@ -88,7 +88,7 @@ async function main() {
       await evaluate('window.scrollTo({top:0,behavior:"instant"});document.querySelector(".spotlight").scrollTo({left:0,behavior:"instant"})'); await delay(180);
       const geometry = await evaluate(`(() => {
         const rect=el=>el.getBoundingClientRect();
-        const image=rect(document.querySelector('.masthead__burger>img'));
+        const image=rect(document.querySelector('.masthead__burger'));
         const title=rect(document.querySelector('.masthead h1')),faith=rect(document.querySelector('.masthead__copy p')),smile=rect(document.querySelector('.masthead__smile'));
         const blessing=rect(document.querySelector('.masthead__blessing'));
         const titleFont=parseFloat(getComputedStyle(document.querySelector('.masthead h1')).fontSize);
