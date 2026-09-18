@@ -141,7 +141,6 @@ img{max-width:100%;display:block}
 .menu-section + .menu-section{margin-top:4px}
 .section-head{
   text-align:center;
-  border-bottom:1px solid var(--line-soft);
   padding:8px 0 7px;
   margin-bottom:0;
 }

@@ -229,7 +229,7 @@
         "Molho de churrasco",
         "Farofa de Churrasco Allegre"
       ],
-      "image": "assets/allegre-brasa.jpeg",
+      "image": "assets/allegre-brasa.png",
       "featured": true,
       "badge": "Especialidade Allegre",
       "optionGroups": [
@@ -385,6 +385,7 @@
       "id": "batata-allegre",
       "type": "side",
       "name": "Batata Allegre",
+      "image": "assets/batata-allegre.png",
       "price": 15.0,
       "portion": "250 g",
       "description": "Batata frita crocante, dourada e temperada na medida certa.",
@@ -397,7 +398,7 @@
       "id": "batata-suprema",
       "type": "side",
       "name": "Batata Suprema Allegre",
-      "image": "assets/batata-suprema.jpeg",
+      "image": "assets/batata-suprema.png",
       "price": 25.0,
       "portion": "250 g",
       "description": "Batata frita coberta com cheddar cremoso e bacon crocante.",
