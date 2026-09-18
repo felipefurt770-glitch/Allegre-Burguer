@@ -449,6 +449,7 @@
       "id": "combo-familia",
       "type": "combo",
       "name": "Combo Família Allegre",
+      "image": "assets/combo-familia.jpeg",
       "price": 150.0,
       "description": "4 Hambúrgueres Artesanais Allegre + 2 Batatas Supremas Allegre (150 g) + 4 refrigerantes lata 350 ml.",
       "shortCopy": "Mesa cheia, fome resolvida.",
