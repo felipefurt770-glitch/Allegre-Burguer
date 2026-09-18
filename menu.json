@@ -397,6 +397,7 @@
       "id": "batata-suprema",
       "type": "side",
       "name": "Batata Suprema Allegre",
+      "image": "assets/batata-suprema.jpeg",
       "price": 25.0,
       "portion": "250 g",
       "description": "Batata frita coberta com cheddar cremoso e bacon crocante.",
