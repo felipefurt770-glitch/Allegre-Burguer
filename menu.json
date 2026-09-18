@@ -430,6 +430,7 @@
       "id": "combo-compartilhar",
       "type": "combo",
       "name": "Combo Compartilhar",
+      "image": "assets/combo-compartilhar.jpeg",
       "price": 88.0,
       "description": "2 Hambúrgueres Artesanais Allegre + 2 Batatas Allegre (150 g) + 2 refrigerantes lata 350 ml.",
       "shortCopy": "Feito para dividir a fome, não o sabor.",
