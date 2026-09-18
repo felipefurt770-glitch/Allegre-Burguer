@@ -92,13 +92,15 @@ async function main() {
         const title=rect(document.querySelector('.masthead h1')),faith=rect(document.querySelector('.masthead__copy p')),smile=rect(document.querySelector('.masthead__smile'));
         const blessing=rect(document.querySelector('.masthead__blessing'));
         const titleFont=parseFloat(getComputedStyle(document.querySelector('.masthead h1')).fontSize);
+        const sloganFont=parseFloat(getComputedStyle(document.querySelector('.masthead__copy p')).fontSize);
         const rows=[...document.querySelectorAll('.product-row')];
         const positions=[...document.querySelectorAll('.menu-section')].map(el=>rect(el).top);
         const carousel=document.querySelector('.spotlight'),cards=[...carousel.children],box=rect(carousel);
         return {
           overflow:document.documentElement.scrollWidth>innerWidth,
           heroClear:title.right<=image.left+image.width*.4+1&&faith.right<=image.left+image.width*.4+1&&smile.right<=image.left+image.width*.4+1&&title.bottom<=faith.top+1&&faith.bottom<=smile.top+1,
-          heroSizes:Math.abs(titleFont-Math.min(4.8*16,Math.max(2.15*16,innerWidth*.055))*1.2)<.1&&Math.abs(smile.width-Math.min(130,Math.max(64,innerWidth*.09))*1.1)<.1,
+          heroSizes:Math.abs(titleFont-Math.min(5.76*16,Math.max(2.58*16,innerWidth*.066))*1.2)<.1&&Math.abs(sloganFont-Math.min(1.45*16,Math.max(16,innerWidth*.02))*1.2)<.1&&Math.abs(smile.width-Math.min(143,Math.max(70.4,innerWidth*.099))*1.2)<.1,
+          smileShift:Math.abs(smile.left-title.left-smile.width*.22)<.1,
           blessingCentered:Math.abs((blessing.left+blessing.right)/2-(image.left+image.right)/2)<1&&blessing.bottom<image.bottom&&image.bottom-blessing.bottom<=33&&blessing.top>smile.bottom,
           heroText:document.querySelector('.masthead__copy p').textContent==='Onde a fome termina e o sorriso começa'&&document.querySelector('.masthead__blessing').textContent==='Deus seja louvado',
           noNumbers:!document.querySelector('.product-row__number'),
@@ -112,7 +114,7 @@ async function main() {
           titleStyles:rows.map(row=>{const s=getComputedStyle(row.querySelector('h3'));return {drink:row.classList.contains('product-row--drink'),size:s.fontSize,weight:s.fontWeight,family:s.fontFamily}})
         };
       })()`);
-      for (const key of ['heroClear','heroSizes','blessingCentered','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
+      for (const key of ['heroClear','heroSizes','smileShift','blessingCentered','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
       assert(!geometry.overflow, width + ': overflow');
       assert.equal(geometry.visible, width < 680 ? 3 : 4);
       assert.equal(geometry.scrollable, width < 680);
