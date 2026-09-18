@@ -148,12 +148,13 @@ img{max-width:100%;display:block}
 .section-head h2{
   margin:0;
   font-family:var(--serif);
-  font-size:.78rem;
-  line-height:1;
+  font-size:clamp(1.65rem,3vw,2.25rem);
+  line-height:1.1;
   font-weight:700;
-  letter-spacing:.21em;
-  text-transform:uppercase;
+  letter-spacing:-.025em;
+  text-transform:none;
 }
+.menu-section--highlights .section-head{margin-top:7.04%}
 .section-head p,.section-head .result-count{display:none}
 
 .menu-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px}
@@ -170,8 +171,8 @@ img{max-width:100%;display:block}
 .product-row h3{margin:0;font-family:var(--serif);font-weight:600;font-size:1.55rem;line-height:1}
 .product-row__footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;flex-wrap:wrap}
 .product-row__price{display:block;margin:0;font-size:.75rem;letter-spacing:.08em;font-weight:600;white-space:nowrap}
-.product-row__desc{color:#d0d0cb;font-family:var(--sans);font-size:1.02rem;line-height:1.25;margin:6px 0 0;max-width:100%}
-.product-row__short{color:#b4b4ad;font-family:var(--sans);font-style:normal;font-size:.96rem;margin:5px 0 0}
+.product-row__desc{color:#d0d0cb;font-family:var(--sans);font-size:.8rem;line-height:1.4;margin:6px 0 0;max-width:100%}
+.product-row__short{color:#b4b4ad;font-family:var(--sans);font-style:normal;font-size:.75rem;line-height:1.4;margin:5px 0 0}
 .product-row__action{
   flex:0 0 44px;margin-left:auto;width:44px;height:44px;border:1px solid #000;background:#fff;color:#000;
   border-radius:50%;font-size:1.25rem;line-height:1;display:grid;place-items:center;transition:background .18s ease,color .18s ease;
@@ -258,7 +259,7 @@ img{max-width:100%;display:block}
 }
 .modal-photo img{width:100%;height:100%;object-fit:cover}
 .modal-desc{
-  color:#d0d0ca;line-height:1.25;font-family:var(--sans);font-size:1.08rem;
+  color:#d0d0ca;line-height:1.4;font-family:var(--sans);font-size:.85rem;
 }
 .option-group{padding:17px 0;border-top:1px solid var(--line-soft)}
 .option-group h3{
@@ -348,7 +349,6 @@ img{max-width:100%;display:block}
   .spotlight{--card-gap:14px}
   .product-row{gap:14px}
   .product-row h3{font-size:1.45rem}
-  .product-row__desc{font-size:1rem}
   .footer__inner{grid-template-columns:1fr;gap:12px}
   .sheet--product{width:100%;max-height:92dvh;left:0;top:auto;bottom:0;transform:none;border-left:0;border-right:0;border-bottom:0}
   .sheet--cart,.sheet--checkout{width:100%}
