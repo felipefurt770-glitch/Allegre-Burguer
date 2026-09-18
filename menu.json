@@ -410,6 +410,7 @@
       "id": "combo-sorriso",
       "type": "combo",
       "name": "Combo Sorriso",
+      "image": "assets/combo-sorriso.jpeg",
       "price": 48.6,
       "description": "1 Hambúrguer Artesanal Allegre + 1 Batata Allegre (150 g) + 1 refrigerante lata 350 ml.",
       "shortCopy": "Tudo o que você precisa para matar a fome.",
