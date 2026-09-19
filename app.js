@@ -107,8 +107,9 @@ function sectionMarkup(category,items){
  const heading='<div class="section-head"><h2 id="'+titleId+'">'+category.name+'</h2></div>';
  if(category.id==='destaques')return '<section id="'+category.id+'" class="menu-section menu-section--highlights" aria-labelledby="'+titleId+'">'+heading+
   '<div class="spotlight" role="group" aria-label="Produtos em destaque">'+items.map(p=>
-   '<button class="spotlight__item" type="button" data-product="'+p.id+'" aria-label="Ver '+p.name+' por '+money(p.price)+'">'+
-   '<span class="spotlight__photo">'+productMedia(p)+'</span><span class="spotlight__price">'+money(p.price)+'</span><strong>'+p.name+'</strong></button>'
+   '<article class="spotlight__item"><button class="spotlight__photo" type="button" data-product="'+p.id+'" aria-label="Ver '+p.name+' por '+money(p.price)+'">'+productMedia(p)+'</button>'+
+   '<div class="spotlight__details"><div class="spotlight__copy"><span class="spotlight__price">'+money(p.price)+'</span><strong>'+p.name+'</strong></div>'+
+   '<button class="product-row__action" type="button" data-product="'+p.id+'" aria-label="'+(p.type==='combo'?'Montar':'Escolher')+' '+p.name+'">+</button></div></article>'
   ).join('')+'</div></section>';
  return '<section id="'+category.id+'" class="menu-section" aria-labelledby="'+titleId+'">'+heading+
   '<div class="menu-list">'+items.map(card).join('')+'</div></section>';

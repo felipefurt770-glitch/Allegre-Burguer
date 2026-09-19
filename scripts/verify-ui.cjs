@@ -82,7 +82,7 @@ async function main() {
     assert.deepEqual(await evaluate('[...document.querySelectorAll(".menu-section")].map(s=>s.id)'), order);
     await evaluate('document.fonts.ready');
     await evaluate('Promise.all([...document.images].map(img=>{img.loading="eager";return img.decode()}))');
-    for (const width of [1440, 1024, 768, 430, 390]) {
+    for (const width of [1440, 1024, 768, 430, 390, 320]) {
       await send('Emulation.setDeviceMetricsOverride', {width, height:900, deviceScaleFactor:1, mobile:width < 680});
       await send('Emulation.setTouchEmulationEnabled',{enabled:width<680});
       await evaluate('window.scrollTo({top:0,behavior:"instant"});document.querySelector(".spotlight").scrollTo({left:0,behavior:"instant"})'); await delay(180);
@@ -98,11 +98,13 @@ async function main() {
         const carousel=document.querySelector('.spotlight'),cards=[...carousel.children],box=rect(carousel);
         return {
           overflow:document.documentElement.scrollWidth>innerWidth,
+          highlightsActions:cards.every(card=>{const button=card.querySelector('.product-row__action'),a=rect(button),b=rect(card),photo=rect(card.querySelector('.spotlight__photo')),copy=rect(card.querySelector('.spotlight__copy'));return a.width>=44&&a.height>=44&&a.left>=copy.right&&a.right<=b.right+1&&a.top>=photo.bottom&&a.bottom<=b.bottom+1}),
+          compactHero:rect(document.querySelector('#destaques h2')).top-image.bottom<=32,
           heroClear:title.right<=image.left+image.width*.4+1&&faith.right<=image.left+image.width*.4+1&&smile.right<=image.left+image.width*.4+1&&title.bottom<=faith.top+1&&faith.bottom<=smile.top+1,
-          heroSizes:Math.abs(titleFont-Math.min(5.76*16,Math.max(2.58*16,innerWidth*.066))*1.2)<.1&&Math.abs(sloganFont-(innerWidth<=680?Math.min(19.2,Math.max(12.8,innerWidth*.04)):Math.min(1.45*16,Math.max(16,innerWidth*.02))*1.2))<.1&&Math.abs(smile.width-Math.min(143,Math.max(70.4,innerWidth*.099))*1.2)<.1,
+          heroSizes:Math.abs(titleFont-(innerWidth<=360?2.58*16:Math.min(5.76*16,Math.max(2.58*16,innerWidth*.066))*1.2))<.1&&Math.abs(sloganFont-(innerWidth<=680?Math.min(19.2,Math.max(12.8,innerWidth*.04)):Math.min(1.45*16,Math.max(16,innerWidth*.02))*1.2))<.1&&Math.abs(smile.width-Math.min(143,Math.max(70.4,innerWidth*.099))*1.2)<.1,
           sloganLines:Math.abs(faith.height-parseFloat(getComputedStyle(document.querySelector('.masthead__copy p')).lineHeight)*2)<1,
           smileShift:Math.abs(smile.left-title.left-smile.width*.22)<.1,
-          blessingCentered:Math.abs((blessing.left+blessing.right)/2-(image.left+image.right)/2)<1&&blessing.bottom<image.bottom&&image.bottom-blessing.bottom<=33&&blessing.top>smile.bottom,
+          blessingAligned:getComputedStyle(document.querySelector('.masthead__blessing')).textAlign==='left'&&Math.abs(blessing.left+parseFloat(getComputedStyle(document.querySelector('.masthead__blessing')).paddingLeft)-title.left)<1&&blessing.bottom<image.bottom&&image.bottom-blessing.bottom<=33&&blessing.top>smile.bottom,
           heroText:document.querySelector('.masthead__copy p').textContent==='Onde a fome termina e o sorriso começa'&&document.querySelector('.masthead__blessing').textContent==='Deus seja louvado',
           noNumbers:!document.querySelector('.product-row__number'),
           ordered:positions.every((p,i)=>!i||p>positions[i-1]),
@@ -116,7 +118,7 @@ async function main() {
           titleStyles:rows.map(row=>{const s=getComputedStyle(row.querySelector('h3'));return {drink:row.classList.contains('product-row--drink'),size:s.fontSize,weight:s.fontWeight,family:s.fontFamily}})
         };
       })()`);
-      for (const key of ['grid','heroClear','heroSizes','sloganLines','smileShift','blessingCentered','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
+      for (const key of ['highlightsActions','compactHero','grid','heroClear','heroSizes','sloganLines','smileShift','blessingAligned','heroText','noNumbers','ordered','mediaLeft','addInside','allTextFits','square']) assert(geometry[key], width + ': ' + key);
       assert(!geometry.overflow, width + ': overflow');
       assert.equal(geometry.visible, 4);
       assert.equal(geometry.scrollable, false);
@@ -165,7 +167,7 @@ async function main() {
     await click('#openSearch'); await click('#searchCategories [data-nav="destaques"]'); await delay(350);
     assert.equal(await evaluate('document.querySelector("#search").value'), '');
     for (const id of highlights) {
-      await click('.spotlight__item[data-product="' + id + '"]');
+      await click('.spotlight__details [data-product="' + id + '"]');
       assert.equal(await evaluate('document.querySelector("#modalTitle").textContent'),menu.products.find(p=>p.id===id).name);
       const p=menu.products.find(p=>p.id===id);
       if (p.type==='combo') {
